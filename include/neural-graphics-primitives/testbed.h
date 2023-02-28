@@ -719,7 +719,7 @@ public:
 			void set_camera_intrinsics(int frame_idx, float fx, float fy = 0.0f, float cx = -0.5f, float cy = -0.5f, float k1 = 0.0f, float k2 = 0.0f, float p1 = 0.0f, float p2 = 0.0f, float k3 = 0.0f, float k4 = 0.0f, bool is_fisheye = false);
 			void set_camera_extrinsics_rolling_shutter(int frame_idx, mat4x3 camera_to_world_start, mat4x3 camera_to_world_end, const vec4& rolling_shutter, bool convert_to_ngp = true);
 			void set_camera_extrinsics(int frame_idx, mat4x3 camera_to_world, bool convert_to_ngp = true);
-			mat4x3 get_camera_extrinsics(int frame_idx);
+			mat4x3 get_camera_extrinsics(int frame_idx, bool convert_to_ngp);
 			void update_transforms(int first = 0, int last = -1);
 			void update_extra_dims();
 

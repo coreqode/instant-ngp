@@ -682,7 +682,8 @@ PYBIND11_MODULE(pyngp, m) {
 			py::arg("convert_to_ngp")=true,
 			"Set up the camera extrinsics for the given training image index, from the given 3x4 transformation matrix."
 		)
-		.def("get_camera_extrinsics", &Testbed::Nerf::Training::get_camera_extrinsics, py::arg("frame_idx"), "return the 3x4 transformation matrix of given training frame")
+		// .def("get_camera_extrinsics", &Testbed::Nerf::Training::get_camera_extrinsics, py::arg("frame_idx"), "return the 3x4 transformation matrix of given training frame")
+		.def("get_camera_extrinsics", &Testbed::Nerf::Training::get_camera_extrinsics, py::arg("frame_idx"), py::arg("convert_to_ngp")=true, "return the 3x4 transformation matrix of given training frame")
 		.def("set_image", &Testbed::Nerf::Training::set_image,
 			py::arg("frame_idx"),
 			py::arg("img"),

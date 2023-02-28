@@ -2566,7 +2566,7 @@ void Testbed::Nerf::Training::export_camera_extrinsics(const fs::path& path, boo
 	for(int i = 0; i < n_images_for_training; ++i) {
 		nlohmann::json frame{{"id", i}};
 
-		const mat4x3 p_nerf = get_camera_extrinsics(i);
+		const mat4x3 p_nerf = get_camera_extrinsics(i, true);
 		if (export_extrinsics_in_quat_format) {
 			// Assume 30 fps
 			frame["time"] =  i*0.033f;
@@ -2598,11 +2598,15 @@ void Testbed::Nerf::Training::export_camera_extrinsics(const fs::path& path, boo
 	file << std::setw(2) << trajectory << std::endl;
 }
 
-mat4x3 Testbed::Nerf::Training::get_camera_extrinsics(int frame_idx) {
+mat4x3 Testbed::Nerf::Training::get_camera_extrinsics(int frame_idx, bool convert_to_ngp) {
 	if (frame_idx < 0 || frame_idx >= dataset.n_images) {
 		return mat4x3(1.0f);
 	}
-	return dataset.ngp_matrix_to_nerf(transforms[frame_idx].start);
+	if (convert_to_ngp) {
+		return dataset.ngp_matrix_to_nerf(transforms[frame_idx].start);
+	} else {
+		return transforms[frame_idx].start;
+	}
 }
 
 void Testbed::Nerf::Training::update_transforms(int first, int last) {
