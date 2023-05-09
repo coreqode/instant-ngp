@@ -448,6 +448,7 @@ PYBIND11_MODULE(pyngp, m) {
 		.def("n_encoding_params", &Testbed::n_encoding_params, "Number of trainable parameters in the encoding")
 		.def("save_snapshot", &Testbed::save_snapshot, py::arg("path"), py::arg("include_optimizer_state")=false, py::arg("compress")=true, "Save a snapshot of the currently trained model. Optionally compressed (only when saving '.ingp' files).")
 		.def("load_snapshot", &Testbed::load_snapshot, py::arg("path"), "Load a previously saved snapshot")
+
 		.def("load_camera_path", &Testbed::load_camera_path, py::arg("path"), "Load a camera path")
 		.def("load_file", &Testbed::load_file, py::arg("path"), "Load a file and automatically determine how to handle it. Can be a snapshot, dataset, network config, or camera path.")
 		.def_property("loop_animation", &Testbed::loop_animation, &Testbed::set_loop_animation)
@@ -471,6 +472,13 @@ PYBIND11_MODULE(pyngp, m) {
 			"`thresh` is the density threshold; use 0 for SDF; 2.5 works well for NeRF. "
 			"If the aabb parameter specifies an inside-out (\"empty\") box (default), the current render_aabb bounding box is used."
 		)
+		.def("save_raw_density_grid", &Testbed::save_raw_density_grid, 
+			py::arg("filename"), 
+			py::arg("resolution") = ivec3(256),
+			py::arg("aabb_min") = vec3(0.0f),
+			py::arg("aabb_max") = vec3(1.f),
+			"Save the raw density grid to a file")
+
 		.def("compute_marching_cubes_mesh", &Testbed::compute_marching_cubes_mesh,
 			py::arg("resolution") = ivec3(256),
 			py::arg("aabb") = BoundingBox{},

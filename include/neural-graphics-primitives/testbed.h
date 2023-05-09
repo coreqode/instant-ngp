@@ -496,6 +496,7 @@ public:
 
 	float compute_image_mse(bool quantize_to_byte);
 
+	void save_raw_density_grid(const char* filename, ivec3 res3d = ivec3(128), vec3 aabb_min = vec3(0.0f), vec3 aabb_max = vec3(1.0f));
 	void compute_and_save_marching_cubes_mesh(const char* filename, ivec3 res3d = ivec3(128), BoundingBox aabb = {}, float thresh = 2.5f, bool unwrap_it = false);
 	ivec3 compute_and_save_png_slices(const char* filename, int res, BoundingBox aabb = {}, float thresh = 2.5f, float density_range = 4.f, bool flip_y_and_z_axes = false);
 
